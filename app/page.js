@@ -49,14 +49,21 @@ export default function Home() {
 
         </div>
       </header>
-      <div className="mt-6 px-5">
-        <Tabs defaultValue="awayDay" className="w-[400px]">
+      <div className="mt-6 px-5 flex">
+        <Tabs defaultValue="awayDay" className="w-full">
+          <div className="flex justify-between">
           <TabsList>
             <TabsTrigger value="awayDay"  className="text-violet-900">Away Day</TabsTrigger>
             <TabsTrigger value="teamOuting" className="text-violet-900">Team Outing</TabsTrigger>
             <TabsTrigger value="celebrations" className="text-violet-900">Celebrations</TabsTrigger>
           </TabsList>
-          <TabsContent value="awayDay">Away Day.</TabsContent>
+
+          <div>
+            Add Button 
+            Dropdown 
+          </div>
+          </div>
+          <TabsContent value="awayDay">Away Day....</TabsContent>
           <TabsContent value="teamOuting">Team Outings.</TabsContent>
           <TabsContent value="celebrations">Celebrations</TabsContent>
         </Tabs>
