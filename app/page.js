@@ -1,3 +1,4 @@
+"use client"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -5,11 +6,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 
-import { LogOut } from 'lucide-react';
+import { LogOut, ImagePlus } from "lucide-react";
 
 export default function Home() {
   return (
@@ -32,42 +41,56 @@ export default function Home() {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>{"User"}</DropdownMenuItem>
-              <DropdownMenuItem>
-                {"Designation"}
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                {"example@gmail.com"}
-              </DropdownMenuItem>
+              <DropdownMenuItem>{"Designation"}</DropdownMenuItem>
+              <DropdownMenuItem>{"example@gmail.com"}</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem
-                className="mt-2 font-bold"
-              >
+              <DropdownMenuItem className="mt-2 font-bold">
                 <LogOut className="mr-4" /> Log Out
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
         </div>
       </header>
-      <div className="mt-6 px-5 flex">
+      <div className="mt-6 px-12 flex">
         <Tabs defaultValue="awayDay" className="w-full">
           <div className="flex justify-between">
-          <TabsList>
-            <TabsTrigger value="awayDay"  className="text-violet-900">Away Day</TabsTrigger>
-            <TabsTrigger value="teamOuting" className="text-violet-900">Team Outing</TabsTrigger>
-            <TabsTrigger value="celebrations" className="text-violet-900">Celebrations</TabsTrigger>
-          </TabsList>
+            <TabsList>
+              <TabsTrigger value="awayDay" className="text-violet-900">
+                Away Day
+              </TabsTrigger>
+              <TabsTrigger value="teamOuting" className="text-violet-900">
+                Team Outing
+              </TabsTrigger>
+              <TabsTrigger value="celebrations" className="text-violet-900">
+                Celebrations
+              </TabsTrigger>
+            </TabsList>
 
-          <div>
-            Add Button 
-            Dropdown 
-          </div>
+            <div className="gap-x-4 flex">
+              <Button variant="secondary">
+                <ImagePlus />
+                Upload Images
+              </Button>
+              <Select onValueChange={(value) => console.log(value)}>
+                <SelectTrigger className="text-purple-900">
+                  <SelectValue placeholder="Select Event..."/>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="awayDay2024">Away Day 2024</SelectItem>
+                  <SelectItem value="celebration2024">
+                    Celebration 2024
+                  </SelectItem>
+                  <SelectItem value="teamOuting2024">
+                    Team Outing 2024
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           <TabsContent value="awayDay">Away Day....</TabsContent>
           <TabsContent value="teamOuting">Team Outings.</TabsContent>
           <TabsContent value="celebrations">Celebrations</TabsContent>
         </Tabs>
-
       </div>
     </div>
   );

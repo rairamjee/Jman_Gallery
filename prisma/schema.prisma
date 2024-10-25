@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Roles {
+  Admin
+  User
+}
+
+enum EventType {
+  AwayDay
+  TeamOuting
+  Celebration
+}
+
+enum OfficeLocation {
+  India
+  US
+  UK
+}
+
+model Users {
+  userId          Int    @id @default(autoincrement())
+  userName        String
+  email           String
+  userDesignation String
+  role            Roles  @default(User)                   // Role Based Accces 
+}
+
+model Events {
+  eventId             Int            @id @default(autoincrement())               
+  eventName           String                                                     // Event Name
+  eventType           EventType      @default(Celebration)                       // Must be selected from Enum Value 
+  eventLocation       String                                                     // Where the event took place 
+  eventOfficeLocation OfficeLocation @default(India)                             // Office Location Where the Event was Organised
+  eventStartDate      DateTime                         
+  eventEndDate        DateTime
+  eventCreatedAt      DateTime       @default(now())
+  eventCreatedBy      Int
+  files               Files[]
+}
+
+model Files {
+  id          Int      @id @default(autoincrement())
+  key         String                                                              // S3 key for the image
+  fileName    String                                                              // Original file name
+  contentType String                                                              // Content type (e.g., image/jpeg)
+  s3Url       String                                                              // Publicly accessible URL or the S3 key
+  uploadedBy  Int                                                                 // UserId
+  createdAt   DateTime @default(now())
+  eventId     Int                                                                 // Foreign key to Event
+  event       Events   @relation(fields: [eventId], references: [eventId])
+}
