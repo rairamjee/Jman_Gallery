@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ImagePlus } from "lucide-react";
 import axios from "axios";
 import DropDownSelectOption from "./selectComponent";
+import UploadModal from './(modal)/uploadModal';
 
 export default function Home() {
   const [eventType, setEventType] = useState('AwayDay');
@@ -41,11 +42,12 @@ export default function Home() {
             </TabsList>
 
             <div className="gap-x-4 flex">
-              <Button variant="secondary">
+            <UploadModal/>
+              {/* <Button variant="secondary">
                 <ImagePlus />
                 Upload Images
-              </Button>
-              <DropDownSelectOption 
+              </Button> */}
+              <DropDownSelectOption
                 eventList={eventList} 
                 selectedEventId={selectedEventId} 
                 onEventSelect={setSelectedEventId} 
