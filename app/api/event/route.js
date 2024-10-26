@@ -74,11 +74,71 @@ export async function POST(req) {
 
         return new Response(
             JSON.stringify({
-                error:error
+                error:"An error occurred while fetching events"
             }),
             {
                 status:500
             }
         )
     }
+}
+
+
+export async function GET(req){
+    const url = new URL(req.url);
+    const eventType = url.searchParams.get('eventType');
+
+    if(!eventType){
+        return new Response(
+            JSON.stringify({
+                error:"No Event Type Specified"
+            }),
+            {
+                status:400
+            }
+        )
+    }
+
+    try {
+
+        const eventList=await prisma.events.findMany({
+            where:{
+                eventType:eventType
+            }
+        })
+    
+        if(eventList.length===0){
+            return new Response(
+                JSON.stringify({
+                    error:"No Events of such type found"
+                }),
+                {
+                    status:404
+                }
+            ) 
+        }
+
+        return new Response(
+            JSON.stringify({
+                message:`List of Events in ${eventType}`,
+                data:eventList 
+            }),
+            {
+                status:200
+            }
+        )
+    } catch (error) {
+        console.log("Error :",error);
+
+        return new Response(
+            JSON.stringify({
+                error:"An error occurred while fetching events"
+            }),
+            {
+                status:500
+            }
+        )
+    }
+
+    
 }
