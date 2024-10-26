@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 import { LogOut} from "lucide-react";
 
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
       >
         <header className="border-b border-purple-300">
           <div className="flex gap-4 justify-between items-center p-5">
+            {/* <Image src="/public/logo.png" width={20} height={20}></Image> */}
             <h2 className="text-violet-900 text-3xl">JMAN Gallery</h2>
             <p className="text-pink-400 text-base">
               Creating Technologies Building Memories Together

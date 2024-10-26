@@ -1,8 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { ImagePlus } from "lucide-react";
+
 import axios from "axios";
 import DropDownSelectOption from "./selectComponent";
 import UploadModal from './(modal)/uploadModal';
@@ -42,11 +41,8 @@ export default function Home() {
             </TabsList>
 
             <div className="gap-x-4 flex">
-            <UploadModal/>
-              {/* <Button variant="secondary">
-                <ImagePlus />
-                Upload Images
-              </Button> */}
+            <UploadModal eventList={eventList}/>
+             
               <DropDownSelectOption
                 eventList={eventList} 
                 selectedEventId={selectedEventId} 
