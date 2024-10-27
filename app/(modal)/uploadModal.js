@@ -20,6 +20,7 @@ const UploadModal = ({ eventList }) => {
   const [files, setFiles] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [filesToUpload,setFilesToUpload]=useState([]);
+  const [isOpen ,setIsOpen]=useState(false);
 
   const handleFileChange = (event) => {
     const selectedFiles = Array.from(event.target.files);
@@ -45,7 +46,19 @@ const UploadModal = ({ eventList }) => {
           contentType:`image/${filesToUpload[i].name.split('.')[1]}`,
           eventId:selectedEvent
         })
-        console.log(response);
+        
+        const res=await axios.post('/api/upload/save',{
+          uploadedBy:2,
+          fileName:filesToUpload[i].name,
+          contentType:`image/${filesToUpload[i].name.split('.')[1]}`,
+          eventId:selectedEvent,
+          key:response.data.key
+        })
+
+        if(res.status===201){
+          toast.success("Files Uploaded Successfully");
+          setIsOpen(false);
+        }
       }
       // console.log(selectedEvent);
       setFiles([]); // Clear previews after upload
@@ -56,9 +69,11 @@ const UploadModal = ({ eventList }) => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary">
+        <Button variant="secondary" onClick={()=>{
+          setIsOpen(true)
+        }}>
           <ImagePlus />
           Upload Images
         </Button>

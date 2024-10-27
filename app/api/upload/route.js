@@ -6,9 +6,9 @@ const prisma = new PrismaClient();
 
 const s3 = new S3({
     accessKeyId: process.env.UPLOAD_AWS_ACCESS_KEY_ID,
-    secretAccess: process.env.UPLOAD_AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION
-})
+    secretAccessKey: process.env.UPLOAD_AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION,
+  });
 
 export async function POST(req) {
     try {
@@ -41,7 +41,7 @@ export async function POST(req) {
         
         const ext = originalFileName.split('.').pop().toLowerCase();
         const date = format(new Date(), 'yyyyMMdd');
-        const key = `uploads/${date}-${uuidv4()}.${ext}`;
+        const key = `upload/${date}-${uuidv4()}.${ext}`;
         const s3url = `https://${process.env.S3_BUCKET_NAME}.s3.amazonaws.com/${key}`;
         
         // Generate pre-signed URL
