@@ -14,13 +14,16 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@/components/ui/button';
 import { ImagePlus, ImageUp, CircleX } from "lucide-react";
+import axios from 'axios';
 
 const UploadModal = ({ eventList }) => {
   const [files, setFiles] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
+  const [filesToUpload,setFilesToUpload]=useState([]);
 
   const handleFileChange = (event) => {
     const selectedFiles = Array.from(event.target.files);
+    setFilesToUpload(selectedFiles);
 
     // Check total files including currently selected ones
     if (files.length + selectedFiles.length > 12) {
@@ -32,9 +35,19 @@ const UploadModal = ({ eventList }) => {
     setFiles(prevFiles => [...prevFiles, ...fileUrls]);
   };
 
-  const handleUpload = () => {
+  const handleUpload = async() => {
     if (files.length && selectedEvent) {
-      console.log("Uploading file(s):", files);
+      for(let i=0;i<filesToUpload.length;i++){
+        console.log(filesToUpload[i].name.split('.')[1])
+        const response =await axios.post('/api/upload',{
+          uploadedBy:2,
+          originalFileName:filesToUpload[i].name,
+          contentType:`image/${filesToUpload[i].name.split('.')[1]}`,
+          eventId:selectedEvent
+        })
+        console.log(response);
+      }
+      // console.log(selectedEvent);
       setFiles([]); // Clear previews after upload
       setSelectedEvent(""); // Reset selected event after upload
     } else {
