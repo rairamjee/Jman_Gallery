@@ -46,7 +46,23 @@ const UploadModal = ({ eventList }) => {
           contentType:`image/${filesToUpload[i].name.split('.')[1]}`,
           eventId:selectedEvent
         })
-        console.log(response.data);
+        
+        const {presignedUploadUrl} =response.data;
+
+        try {
+          const s3Response= await axios.put(presignedUploadUrl,filesToUpload[i],{
+            headers: {
+              'Content-Type': `image/${filesToUpload[i].name.split('.')[1]}`,
+          },
+          })
+
+          if (s3Response.status !== 200) {
+            throw new Error('Failed to upload the file to S3.');
+        }
+        } catch (error) {
+          console.error(error);
+          throw new Error('Error uploading the file: ' + error.message);
+        }
         
         const res=await axios.post('/api/upload/save',{
           uploadedBy:2,

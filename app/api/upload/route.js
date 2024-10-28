@@ -42,7 +42,7 @@ export async function POST(req) {
         const ext = originalFileName.split('.').pop().toLowerCase();
         const date = format(new Date(), 'yyyyMMdd');
         const key = `uploads/${date}-${uuidv4()}.${ext}`;
-        const s3url = `https://${process.env.S3_BUCKET_NAME}.s3.amazonaws.com/${key}`;
+        const s3Url = `https://${process.env.S3_BUCKET_NAME}.s3.amazonaws.com/${key}`;
         
         // Generate pre-signed URL
         const presignedUploadUrl = await s3.getSignedUrlPromise("putObject", {
@@ -56,7 +56,7 @@ export async function POST(req) {
             JSON.stringify({
                 key,
                 presignedUploadUrl,
-                s3url
+                s3Url
             }),
             {
                 status:200
