@@ -32,7 +32,7 @@ export async function GET(req) {
     return new Response(
       JSON.stringify({
         message: "List of all the files",
-        data: eventFiles,
+        data: {eventFiles,event}
       }),
       {
         status: 200,

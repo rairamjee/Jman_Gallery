@@ -1,7 +1,6 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import axios from "axios";
 import DropDownSelectOption from "./selectComponent";
 import UploadModal from './(modal)/uploadModal';
@@ -11,6 +10,7 @@ export default function Home() {
   const [eventType, setEventType] = useState('AwayDay');
   const [eventList, setEventList] = useState([]);
   const [selectedEventId, setSelectedEventId] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEventList = async () => {
@@ -24,11 +24,14 @@ export default function Home() {
         }
       } catch (error) {
         console.error("Error occurred while fetching the event list");
+      } finally {
+        setLoading(false);
       }
-    }
+    };
 
     fetchEventList();
   }, [eventType]);
+
 
   return (
     <div>
@@ -36,24 +39,33 @@ export default function Home() {
         <Tabs defaultValue="awayDay" className="w-full">
           <div className="flex justify-between">
             <TabsList>
-              <TabsTrigger value="awayDay" onClick={() => setEventType('AwayDay')}>Away Day</TabsTrigger>
-              <TabsTrigger value="teamOuting" onClick={() => setEventType('TeamOuting')}>Team Outing</TabsTrigger>
-              <TabsTrigger value="celebrations" onClick={() => setEventType('Celebration')}>Celebrations</TabsTrigger>
+              <TabsTrigger value="awayDay" onClick={() => { setEventType('AwayDay'); setSelectedEventId(''); }}>Away Day</TabsTrigger>
+              <TabsTrigger value="teamOuting" onClick={() => { setEventType('TeamOuting'); setSelectedEventId(''); }}>Team Outing</TabsTrigger>
+              <TabsTrigger value="celebrations" onClick={() => { setEventType('Celebration'); setSelectedEventId(''); }}>Celebrations</TabsTrigger>
+
             </TabsList>
 
             <div className="gap-x-4 flex">
-            <UploadModal eventList={eventList}/>
-             
+              <UploadModal eventList={eventList} />
               <DropDownSelectOption
-                eventList={eventList} 
-                selectedEventId={selectedEventId} 
-                onEventSelect={setSelectedEventId} 
+                eventList={eventList}
+                selectedEventId={selectedEventId}
+                onEventSelect={setSelectedEventId}
               />
             </div>
           </div>
-          <TabsContent value="awayDay"><PreviewImages eventId={selectedEventId}/></TabsContent>
-          <TabsContent value="teamOuting">Team Outings.</TabsContent>
-          <TabsContent value="celebrations">Celebrations</TabsContent>
+
+          <div className="mt-4 p-4 border border-gray-300 rounded-lg shadow-lg">
+            {loading ? (
+              <p>Loading...</p> // You can replace this with a loading spinner or skeleton
+            ) : (
+              <>
+                <TabsContent value="awayDay">{selectedEventId && <PreviewImages eventId={selectedEventId} />}</TabsContent>
+                <TabsContent value="teamOuting">{selectedEventId && <PreviewImages eventId={selectedEventId} />}</TabsContent>
+                <TabsContent value="celebrations">{selectedEventId && <PreviewImages eventId={selectedEventId} />}</TabsContent>
+              </>
+            )}
+          </div>
         </Tabs>
       </div>
     </div>

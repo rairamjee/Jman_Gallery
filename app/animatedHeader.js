@@ -37,8 +37,8 @@ export default function AnimatedHeader() {
   return (
     <header className="border-b border-purple-300">
       <div className="flex gap-4 justify-between items-center p-5">
-        <h2 className="text-violet-900 text-3xl">JMAN Gallery</h2>
-        <p className="text-pink-600 text-base w-96 h-6">
+        <h2 className="text-violet-900 text-3xl font-bold">JMAN Gallery</h2>
+        <p className="text-pink-600 text-xl w-2/4 h-8">
           {displayedText}
           <span className="animate-blink">|</span>
         </p>
@@ -51,13 +51,13 @@ export default function AnimatedHeader() {
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-purple-900">My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>{"User"}</DropdownMenuItem>
-            <DropdownMenuItem>{"Designation"}</DropdownMenuItem>
-            <DropdownMenuItem>{"example@gmail.com"}</DropdownMenuItem>
+            <DropdownMenuItem className="text-purple-900">{"User"}</DropdownMenuItem>
+            <DropdownMenuItem className="text-purple-900">{"Designation"}</DropdownMenuItem>
+            <DropdownMenuItem className="text-purple-900">{"example@gmail.com"}</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="mt-2 font-bold">
+            <DropdownMenuItem className="mt-2 font-bold text-purple-900">
               <LogOut className="mr-4" /> Log Out
             </DropdownMenuItem>
           </DropdownMenuContent>

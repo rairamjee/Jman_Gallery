@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@/components/ui/button';
 import { ImagePlus, ImageUp, CircleX } from "lucide-react";
 import axios from 'axios';
+import PreviewImages from '../previewImages/page';
 
 const UploadModal = ({ eventList }) => {
   const [files, setFiles] = useState([]);
@@ -75,8 +76,10 @@ const UploadModal = ({ eventList }) => {
         if(res.status===201){
           toast.success("Files Uploaded Successfully");
           setIsOpen(false);
+          <PreviewImages eventId={selectedEvent}></PreviewImages>
         }
       }
+
       // console.log(selectedEvent);
       setFiles([]); // Clear previews after upload
       setSelectedEvent(""); // Reset selected event after upload
