@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axios from "axios";
 import DropDownSelectOption from "./selectComponent";
 import UploadModal from './(modal)/uploadModal';
+import PreviewImages from './previewImages/page';
 
 export default function Home() {
   const [eventType, setEventType] = useState('AwayDay');
@@ -50,7 +51,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <TabsContent value="awayDay">Away Day....</TabsContent>
+          <TabsContent value="awayDay"><PreviewImages eventId={selectedEventId}/></TabsContent>
           <TabsContent value="teamOuting">Team Outings.</TabsContent>
           <TabsContent value="celebrations">Celebrations</TabsContent>
         </Tabs>

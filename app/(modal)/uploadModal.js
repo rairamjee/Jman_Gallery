@@ -46,6 +46,7 @@ const UploadModal = ({ eventList }) => {
           contentType:`image/${filesToUpload[i].name.split('.')[1]}`,
           eventId:selectedEvent
         })
+        console.log(response.data);
         
         const res=await axios.post('/api/upload/save',{
           uploadedBy:2,

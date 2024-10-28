@@ -41,7 +41,7 @@ export async function POST(req) {
         
         const ext = originalFileName.split('.').pop().toLowerCase();
         const date = format(new Date(), 'yyyyMMdd');
-        const key = `upload/${date}-${uuidv4()}.${ext}`;
+        const key = `uploads/${date}-${uuidv4()}.${ext}`;
         const s3url = `https://${process.env.S3_BUCKET_NAME}.s3.amazonaws.com/${key}`;
         
         // Generate pre-signed URL
